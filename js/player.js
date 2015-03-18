@@ -19,11 +19,12 @@ app.player = {
 	
 	flySpeed: 20, //Flying in space speed
 	spinSpeed: Math.PI, //Spinning in space speed
-	walkSpeed: Math.PI/5, //Walking on land speed
+	walkSpeed: 100, //Walking on land speed
 	thrust: 150,// Thrust off planet speed
 	tangentSpeed: 20,
 	orientSpeed: Math.PI*1.8, //Speed of auto-orientation with planet
 	
+	walkSpeedAngle: -1,
 	xVel:0,
 	yVel:0,
 	rVel:0, //Rotational velocity
@@ -147,7 +148,10 @@ app.player = {
 	
 	moveLeft: function(dt){
 		if(this.planet && this.onGround){
-			this.angleWithPlanet -= this.walkSpeed*dt;
+			if(this.walkSpeedAngle == -1){
+				this.walkSpeedAngle = this.walkSpeed/this.planet.innerRadius;
+			}
+			this.angleWithPlanet -= this.walkSpeedAngle*dt;
 			this.updateLocationWithPlanet();
 			//this.moveTangetToPlanet(-this.walkSpeed*dt);
 			//this.onGround = false;
@@ -159,7 +163,10 @@ app.player = {
 	},
 	moveRight: function(dt){
 		if(this.planet && this.onGround){
-			this.angleWithPlanet += this.walkSpeed*dt;
+			if(this.walkSpeedAngle == -1){
+				this.walkSpeedAngle = this.walkSpeed/this.planet.innerRadius;
+			}
+			this.angleWithPlanet += this.walkSpeedAngle*dt;
 			this.updateLocationWithPlanet();
 			//this.moveTangetToPlanet(this.walkSpeed*dt);
 			//this.onGround = false;
@@ -254,7 +261,7 @@ app.player = {
 	setPlanet: function(planet){
 		if(planet != this.planet){
 			this.planet = planet;
-			
+			this.walkSpeedAngle = -1;
 			if(planet){
 				this.thrust = planet.gravity + 5;
 				//Get angle between our position and the planet's right vector (radians=0)
