@@ -86,14 +86,15 @@ app.player = {
 			
 			//Fall towards planet if not on ground
 			if(!this.onGround && this.getDistanceToPlanet()-this.radius > this.planet.innerRadius){
+				this.angleWithPlanet = 
+					this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],[0, 1]);
 				//this.moveVerticalOnPlanet(this.getDistanceToPlanet()-this.getGravity()*dt);
 				this.moveTowardPlanet(this.getGravity()*dt);
 			}else { 
 				//Set on surface
 				if(!this.onGround){
 					this.angleWithPlanet = 
-						this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],
-													[0, 1]);
+						this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],[0, 1]);
 					this.moveVerticalOnPlanet(this.planet.innerRadius + this.radius);
 				}
 				this.onGround = true;
@@ -105,7 +106,7 @@ app.player = {
 			
 			//Orient with planet
 			var desiredAngle = this.angleWithPlanet + Math.PI/2;
-			if(this.onGround && this.angle != desiredAngle){
+			if(this.angle != desiredAngle){
 				var diff = (desiredAngle%(Math.PI*2)) - (this.angle%(Math.PI*2));
 				diff %= Math.PI*2;
 				console.log("DIFF " + diff);
@@ -174,7 +175,8 @@ app.player = {
 			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
 		}else {
-			this.moveTowardPlanet(-this.thrust*dt);
+			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.thrust*dt;
+			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.thrust*dt;
 			this.onGround = false;
 		}
 	},
@@ -183,7 +185,8 @@ app.player = {
 			this.xVel +=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
 		}else {
-			this.moveTowardPlanet(this.thrust*dt/10);
+			this.xVel +=  Math.cos(this.angle+Math.PI/2) * this.thrust*dt;
+			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.thrust*dt;
 			this.onGround = false;
 		}
 	},
