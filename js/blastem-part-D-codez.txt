@@ -1,0 +1,17 @@
+collides: function (a, b) {
+		// a = sprite1
+		// b = sprite2
+		// bounding box collision detection
+		// https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+		// we have to adjust our bounding boxes because
+		// we're drawing sprites from their center x,y
+		var ax = a.x - a.width/2;
+		var ay = a.y - a.height/2;
+		var bx = b.x - b.width/2;
+		var by = b.y - b.height/2;
+		
+		return  ax < bx + b.width &&
+				ax + a.width > bx &&
+			   ay < by + b.height &&
+				ay + a.height > by;
+	}

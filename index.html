@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		body { margin: 0; padding: 0; background: #999;}
+		canvas { display: block; margin: 0.5em auto; background: #fff; }
+		#about {
+			width: 600px;
+			margin-left:auto;
+			margin-right:auto;
+			padding: 0.5em;
+			background: white;
+		}
+		h1 {
+			font-size: 16px;
+			margin-bottom: 0.2em;
+		}
+		ul, p{
+			margin-top: 0.2em;
+		}
+		p{
+			padding-left: 1em;
+		}
+	</style>
+	<title>330 Project1 Frankie DiPietro</title>
+</head>
+<body>
+	<canvas width='640' height='480'>
+		Get a real browser!
+	</canvas>
+	<script src="http://code.createjs.com/preloadjs-0.4.1.min.js"> </script>
+	
+	<script src="js/drawLib.js"></script>
+	<script src="js/game.js"></script>
+	<script src="js/planet.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
+	
+	<script src="js/loader.js"></script>
+	
+	<div id="about">
+		<h1> Controls</h1>
+		<ul>
+			<li> Left/Right: Rotate </li>
+			<li> Up/Down: Thrust </li>
+			<li> S: Toggle music </li>
+		</ul>
+		<h1> About </h1>
+		<p> 
+			This is a small game written for 330-Rich Media Web App Dev 
+			<br/><br/>
+			The concept is a platformer jumping from gravitational bodies.<br/>
+			The spinning dotted lines mark the influence range of each planet. Moving within them will cause you to be affected by the planet's gravity. 
+			<br/><br/>
+			The goal (to be implemented) will be to collect the gold on each of the planets while avoiding dangers and maintaining fuel.
+		</p>
+	</div>
+</body>
+</html>

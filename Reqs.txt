@@ -1,0 +1,10 @@
+4 levels
+Sound
+Web font
+no JQuery
+
+==extras==
+saving scores to local 
+"Exceptional visuals"
+"unique gameplay"
+
