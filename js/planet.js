@@ -16,17 +16,8 @@ app.Planet = function(){
 		this.gravity = this.radius*0.1;
 		
 		//Generating image
-		var canv = this.drawLib.getTempCanvas(this.width, this.height);
+		var canv = this.drawLib.getTempCanvas(this.width, this.width);
 		var ctx = canv.getContext("2d");
-		
-		//influence gradient
-		var grad = ctx.createRadialGradient(this.radius+3, this.radius+3,this.innerRadius,this.radius+3, this.radius+3,this.radius);
-		grad.addColorStop(0, "rgba(100,100,100,200)");
-		grad.addColorStop(1, "rgba(255,255,255,0)");
-		ctx.beginPath();
-		ctx.fillStyle = grad;
-		ctx.arc(this.radius+3, this.radius+3, this.radius, 0, Math.PI*2);
-		ctx.fill();
 		
 		//Planet's fill
 		ctx.fillStyle = this.color;
@@ -55,6 +46,19 @@ app.Planet = function(){
 		ctx.fill();
 		ctx.stroke();
 		
+		this.image = this.drawLib.makeImage(canv);
+		
+		canv = this.drawLib.getTempCanvas(this.width, this.width);
+		ctx = canv.getContext("2d");
+		//influence gradient
+		var grad = ctx.createRadialGradient(this.radius+3, this.radius+3,this.innerRadius,this.radius+3, this.radius+3,this.radius);
+		grad.addColorStop(0, "rgba(100,100,100,200)");
+		grad.addColorStop(1, "rgba(255,255,255,0)");
+		ctx.beginPath();
+		ctx.fillStyle = grad;
+		ctx.arc(this.radius+3, this.radius+3, this.radius, 0, Math.PI*2);
+		ctx.fill();
+		
 		//Planets area of influence
 		ctx.strokeStyle = this.color;
 		ctx.setLineDash([5]);
@@ -62,7 +66,7 @@ app.Planet = function(){
 		ctx.arc(this.radius+3, this.radius+3, this.radius, 0, Math.PI*2);
 		ctx.stroke();
 		
-		this.image = this.drawLib.makeImage(canv);;
+		this.influenceImage = this.drawLib.makeImage(canv);
 		
 		this.spin = 0;
 	};
@@ -77,9 +81,12 @@ app.Planet = function(){
 			
 			ctx.save();
 			ctx.translate(this.x, this.y);
-			ctx.rotate(this.spin);
 			if(this.image){
-				ctx.drawImage(this.image, -halfW, -halfH, this.width, this.height);
+				ctx.save();
+				ctx.rotate(this.spin);
+				ctx.drawImage(this.influenceImage, -halfW, -halfH, this.width, this.width);
+				ctx.restore();
+				ctx.drawImage(this.image, -halfW, -halfH, this.width, this.width);
 			}else{
 				console.log("NO IMAGE");
 				//Planet's fill
