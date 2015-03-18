@@ -117,6 +117,11 @@ app.game = {
 			this.player.drawPlanetIndicator(this.ctx,planet);
 		},this);
 		
+		this.planets.forEach(function(planet){
+			if(this.utils.distanceBetween(planet,this.player) < 5000)
+				this.player.drawPlanetIndicator(this.ctx,planet);
+		},this);
+		
 		this.player.draw(this.ctx);
 		
 		this.ctx.restore();
