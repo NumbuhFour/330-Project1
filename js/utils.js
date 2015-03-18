@@ -61,6 +61,12 @@ app.utils = function(){
 		return {x:x, y:y};
 	}
 	
+	function distanceBetween(p1, p2){
+		var dx = p1.x-p2.x;
+		var dy = p1.y-p2.y;
+		return Math.sqrt(dx*dx + dy*dy);
+	}
+	
 	// the "public interface" of this module
 	return{
 		clamp : clamp,
@@ -70,5 +76,6 @@ app.utils = function(){
 		getAngleBetween : getAngleBetween,
 		rotateVector : rotateVector,
 		normalizeVector : normalizeVector,
+		distanceBetween : distanceBetween,
 	};
 }(); 
