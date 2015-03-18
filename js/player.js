@@ -21,7 +21,7 @@ app.player = {
 	spinSpeed: Math.PI, //Spinning in space speed
 	walkSpeed: 100, //Walking on land speed
 	thrust: 150,// Thrust off planet speed
-	tangentSpeed: 20,
+	tangentSpeed: 10,
 	orientSpeed: Math.PI*1.8, //Speed of auto-orientation with planet
 	
 	walkSpeedAngle: -1,
@@ -82,8 +82,6 @@ app.player = {
 		if(this.planet){
 							
 				
-			this.xVel *= 0.97; //Dampening
-			this.yVel *= 0.97;	
 			
 			//Fall towards planet if not on ground
 			if(!this.onGround && this.getDistanceToPlanet()-this.radius > this.planet.innerRadius){
@@ -99,6 +97,8 @@ app.player = {
 					this.moveVerticalOnPlanet(this.planet.innerRadius + this.radius);
 				}
 				this.onGround = true;
+			this.xVel *= 0.97; //Dampening
+			this.yVel *= 0.97;	
 			}
 			
 			if(this.getDistanceToPlanet()-this.radius > this.planet.radius){
@@ -110,10 +110,8 @@ app.player = {
 			if(this.angle != desiredAngle){
 				var diff = (desiredAngle%(Math.PI*2)) - (this.angle%(Math.PI*2));
 				diff %= Math.PI*2;
-				console.log("DIFF " + diff);
 				this.angle += this.orientSpeed*dt * (diff > Math.PI || (diff < 0 && diff > -Math.PI) ? -1:1);
 				if(Math.abs(diff) < this.orientSpeed*dt){
-					console.log("DONE");
 					this.angle = desiredAngle;
 				}
 			}
@@ -263,7 +261,7 @@ app.player = {
 			this.planet = planet;
 			this.walkSpeedAngle = -1;
 			if(planet){
-				this.thrust = planet.gravity + 5;
+				this.thrust = planet.gravity + 2;
 				//Get angle between our position and the planet's right vector (radians=0)
 				this.angleWithPlanet = 
 					this.utils.getAngleBetween( 	[this.x - planet.x, this.y - planet.y],
