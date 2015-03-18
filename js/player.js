@@ -39,6 +39,9 @@ app.player = {
 	planet: undefined,
 	angleWithPlanet: 0,
 	
+	maxFuel: 1000,
+	fuel: 1000,
+	
 	init: function(){
 		this.grad=ctx.cr
 	},
@@ -175,9 +178,12 @@ app.player = {
 		if(!this.planet){
 			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
+			
+			this.fuel -= this.flySpeed*dt;
 		}else {
 			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.thrust*dt;
 			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.thrust*dt;
+			this.fuel -= this.thrust*dt;
 			this.onGround = false;
 		}
 	},
@@ -185,16 +191,23 @@ app.player = {
 		if(!this.planet){
 			this.xVel +=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
+		
+			this.fuel -= this.flySpeed*dt;
 		}else {
 			this.xVel +=  Math.cos(this.angle+Math.PI/2) * this.thrust*dt;
 			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.thrust*dt;
+			this.fuel -= this.thrust*dt;
 			this.onGround = false;
 		}
 	},
 	
 	slowDown: function(dt){
-		this.xVel *= 0.95;
-		this.yVel *= 0.95;
+		var damp = 0.95;
+		var fuelVec = {x:this.xVel*(1-damp),y:this.yVel*(1-damp)};
+		var fuelUsed = Math.sqrt(fuelVec.x*fuelVec.x + fuelVec.y*fuelVec.y);
+		this.fuel -= fuelUsed;
+		this.yVel *= damp;
+		this.xVel *= damp;
 	},
 	
 	updateLocationWithPlanet: function(){
@@ -236,6 +249,8 @@ app.player = {
 		var myRightVec = this.getRightVector(speed);
 		this.xVel += myRightVec.x;
 		this.yVel += myRightVec.y;
+		
+		this.fuel -= Math.abs(speed);
 	},
 	
 	getGravity: function(){

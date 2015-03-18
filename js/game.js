@@ -125,6 +125,16 @@ app.game = {
 		this.player.draw(this.ctx);
 		
 		this.ctx.restore();
+		
+		//fuel bar
+		this.ctx.fillStyle = "black";
+		this.ctx.fillRect(5,5,this.WIDTH-10, 20);
+		var fuelPerc = this.player.fuel/this.player.maxFuel;
+		this.ctx.fillStyle = "gray";
+		this.ctx.fillRect(10,10,(this.WIDTH-20), 10);
+		this.ctx.fillStyle = "green";
+		this.ctx.fillRect(10,10,(this.WIDTH-20)*fuelPerc, 10);
+		this.drawLib.text(this.ctx, "Fuel", this.WIDTH/2, 20, 15, "white");
 	},
 	
     update : function(){
