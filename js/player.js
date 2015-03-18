@@ -59,19 +59,13 @@ app.player = {
 			}
 			ctx.fillStyle = this.grad;
 			ctx.fillRect(-halfw, -halfh, this.width, this.height);
-			
-			ctx.strokeStyle = "black";
-			ctx.setLineDash([5]);
-			ctx.beginPath();
-			ctx.arc(0, 0, this.radius, 0, Math.PI*2);
-			ctx.stroke();
 		}else{
 			
 		}
 		
 		
 		ctx.restore();
-		this.drawDebug(ctx);
+		//this.drawDebug(ctx);
 	},
 	
 	update: function(dt){
@@ -86,14 +80,14 @@ app.player = {
 			//Fall towards planet if not on ground
 			if(!this.onGround && this.getDistanceToPlanet()-this.radius > this.planet.innerRadius){
 				this.angleWithPlanet = 
-					this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],[0, 1]);
+					this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],[0, 1]) % (Math.PI*2);
 				//this.moveVerticalOnPlanet(this.getDistanceToPlanet()-this.getGravity()*dt);
 				this.moveTowardPlanet(this.getGravity()*dt);
 			}else { 
 				//Set on surface
 				if(!this.onGround){
 					this.angleWithPlanet = 
-						this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],[0, 1]);
+						this.utils.getAngleBetween( [this.x - this.planet.x, this.y - this.planet.y],[0, 1]) % (Math.PI*2);
 					this.moveVerticalOnPlanet(this.planet.innerRadius + this.radius);
 				}
 				this.onGround = true;
@@ -150,6 +144,7 @@ app.player = {
 				this.walkSpeedAngle = this.walkSpeed/this.planet.innerRadius;
 			}
 			this.angleWithPlanet -= this.walkSpeedAngle*dt;
+			this.angleWithPlanet %= Math.PI*2;
 			this.updateLocationWithPlanet();
 			//this.moveTangetToPlanet(-this.walkSpeed*dt);
 			//this.onGround = false;
@@ -165,6 +160,7 @@ app.player = {
 				this.walkSpeedAngle = this.walkSpeed/this.planet.innerRadius;
 			}
 			this.angleWithPlanet += this.walkSpeedAngle*dt;
+			this.angleWithPlanet %= Math.PI*2;
 			this.updateLocationWithPlanet();
 			//this.moveTangetToPlanet(this.walkSpeed*dt);
 			//this.onGround = false;
@@ -313,9 +309,21 @@ app.player = {
 		
 		ctx.restore();
 		
-		/*var textVec = this.utils.rotateVector([40,-40], this.angle);
-		textVec.x += this.x;
-		textVec.y += this.y;
-		this.drawLib.text(ctx, "Grounded: " + this.onGround, textVec.x, textVec.y, 12, "cyan");*/
+		ctx.save()
+		ctx.translate(this.x,this.y);
+		ctx.rotate(this.angle);
+			
+		ctx.strokeStyle = "black";
+		ctx.setLineDash([5]);
+		ctx.beginPath();
+		ctx.arc(0, 0, this.radius, 0, Math.PI*2);
+		ctx.stroke();
+		
+		var textVec = {x:0, y:-40};
+		this.drawLib.text(ctx, "PlanetAngle: " + this.angleWithPlanet, textVec.x, textVec.y, 12, "cyan");
+		textVec.y -= 15;
+		this.drawLib.text(ctx, "Angle: " + this.angle, textVec.x, textVec.y, 12, "cyan");
+		textVec.y -= 10;
+		ctx.restore();
 	},
 }; // end app.ship
