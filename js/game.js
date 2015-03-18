@@ -27,6 +27,9 @@ app.game = {
 	
 	soundtrack: undefined,
 	soundtrackPaused: false,
+	camx:0,
+	camy:0,
+	camr:0,
 	
 	planets: [],
     
@@ -42,6 +45,10 @@ app.game = {
 		
 		this.soundtrack = createjs.Sound.play("soundtrack", {loop:-1, volume:0.4});
 		this.pauseSoundtrack();
+		
+		this.camx = player.x;
+		this.camy = player.y;
+		this.camr = player.angle;
 		
 		this.update();
 		
@@ -87,10 +94,23 @@ app.game = {
 	drawSprites : function(){
 		this.ctx.save();
 		
+		this.camx = (this.camx + this.player.x) / 2;
+		this.camy = (this.camy + this.player.y) / 2;
+		
+		this.camr %= (Math.PI*2);
+		var pangle = this.player.angle%(Math.PI*2);
+		if(pangle - this.camr > Math.PI){
+			this.camr += Math.PI*2;
+		}else if(this.camr - pangle > Math.PI){
+			this.camr -= Math.PI*2;
+		}
+		this.camr = (pangle+this.camr)/2;
+		this.camr %= (Math.PI*2);
+		
 		//Camera
 		this.ctx.translate(this.WIDTH/2, this.HEIGHT/2);
-		this.ctx.rotate(-this.player.angle);
-		this.ctx.translate(-this.player.x, -this.player.y);
+		this.ctx.rotate(-this.camr);
+		this.ctx.translate(-this.camx, -this.camy);
 		
 		this.planets.forEach(function(planet){
 			planet.draw(this.ctx);
