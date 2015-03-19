@@ -152,7 +152,7 @@ app.player = {
 			//this.moveTangetToPlanet(-this.walkSpeed*dt);
 			//this.onGround = false;
 		}else if(this.planet){
-			this.moveTangetToPlanet(-this.tangentSpeed*dt);
+			if(this.fuel > 0) this.moveTangetToPlanet(-this.tangentSpeed*dt);
 		}else{
 			this.angle -= this.spinSpeed*dt;
 		}
@@ -168,13 +168,14 @@ app.player = {
 			//this.moveTangetToPlanet(this.walkSpeed*dt);
 			//this.onGround = false;
 		}else if(this.planet){
-			this.moveTangetToPlanet(this.tangentSpeed*dt);
+			if(this.fuel > 0) this.moveTangetToPlanet(this.tangentSpeed*dt);
 		}else{
 			this.angle += this.spinSpeed*dt;
 		}
 	},
 	
 	moveUp: function(dt){
+		if(this.fuel <= 0) return;
 		if(!this.planet){
 			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
@@ -188,6 +189,7 @@ app.player = {
 		}
 	},
 	moveDown: function(dt){
+		if(this.fuel <= 0) return;
 		if(!this.planet){
 			this.xVel +=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
