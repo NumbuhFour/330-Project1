@@ -31,6 +31,8 @@ app.game = {
 	camy:0,
 	camr:0,
 	
+	fuelBlink: 0,
+	
 	planets: [],
     
     // methods
@@ -59,7 +61,8 @@ app.game = {
 		
 		var coinImage = new Image();
 		coinImage.src = this.app.IMAGES["coinImage"];
-		pBlue.addPlanetObject(this.utils, new app.Coin(this.drawLib,coinImage), 0,0);
+		for(var i=0; i<10; i++)
+			pBlue.addPlanetObject(this.utils, new app.Coin(this.drawLib,coinImage), Math.PI*2/10 * i,0);
 	},
     
 	moveSprites : function(){
@@ -131,9 +134,17 @@ app.game = {
 		this.ctx.restore();
 		
 		//fuel bar
-		this.ctx.fillStyle = "black";
-		this.ctx.fillRect(5,5,this.WIDTH-10, 20);
 		var fuelPerc = this.player.fuel/this.player.maxFuel;
+		if(fuelPerc <= 0.30){
+			this.fuelBlink += 3*this.dt
+		}else{
+			this.fuelBlink = 0;
+		}
+		
+		this.ctx.fillStyle = "black";
+		if(fuelPerc <= 0.30 && this.fuelBlink % 4 < 2) this.ctx.fillStyle = "red";
+		
+		this.ctx.fillRect(5,5,this.WIDTH-10, 20);
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(10,10,(this.WIDTH-20), 10);
 		this.ctx.fillStyle = "green";
