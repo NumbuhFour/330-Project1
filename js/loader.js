@@ -21,6 +21,7 @@ app.keydown = [];
 
 app.IMAGES = {
 	coinImage:	"images/coin_sprites.png",
+	fuelImage:	"images/fuel_sprites.png",
 };
 
 //http://indiegamr.com/generate-repeatable-random-numbers-in-js/
@@ -53,6 +54,7 @@ window.onload = function(){
 	
 	app.queue.loadManifest([
 		{id:	"coinImage",		src:	"images/coin_sprites.png"},
+		{id:	"fuelImage",		src:	"images/fuel_sprites.png"},
 		{id:	"soundtrack",		src:	"sounds/soundtrack.mp3"},
 	]);
 	

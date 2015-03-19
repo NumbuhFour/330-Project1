@@ -56,13 +56,19 @@ app.game = {
 		
 		//Make planets
 		this.createPlanet(180,400,50, "red");
-		this.createPlanet(400,50,100, "green");
+		var pGreen = this.createPlanet(400,50,100, "green");
 		var pBlue = this.createPlanet(900,900,200,"blue");
 		
 		var coinImage = new Image();
 		coinImage.src = this.app.IMAGES["coinImage"];
+		var fuelImage = new Image();
+		fuelImage.src = this.app.IMAGES["fuelImage"];
+		
 		for(var i=0; i<10; i++)
 			pBlue.addPlanetObject(this.utils, new app.Coin(this.drawLib,coinImage), Math.PI*2/10 * i,0);
+		
+		for(var i=0; i<3; i++)
+			pGreen.addPlanetObject(this.utils, new app.Fuel(this.drawLib,fuelImage), Math.PI*2/3 * i,0);
 	},
     
 	moveSprites : function(){
