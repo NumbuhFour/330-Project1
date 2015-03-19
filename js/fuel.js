@@ -81,7 +81,7 @@ app.Fuel = function(){
 	}
 	
 	p.onTouch = function(player) {
-		if(this.collected || player.maxFuel == player.fuel) return;
+		if(this.collected || player.fuel >= player.maxFuel) return;
 		player.fuel += 3;
 		this.fuel -= 3;
 		if(this.fuel <= 0) this.collected = true;
