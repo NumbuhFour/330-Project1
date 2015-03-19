@@ -106,7 +106,7 @@ app.Planet = function(){
 	  };
 	
 	p.update = function(dt) {
-		this.spin += Math.PI/30*dt;
+		//this.spin += Math.PI/30*dt;
 	  };
 	  
 	 p.explode  = function() {
