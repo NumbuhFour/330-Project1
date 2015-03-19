@@ -55,7 +55,11 @@ app.game = {
 		//Make planets
 		this.createPlanet(180,400,50, "red");
 		this.createPlanet(400,50,100, "green");
-		this.createPlanet(900,900,200,"blue");
+		var pBlue = this.createPlanet(900,900,200,"blue");
+		
+		var coinImage = new Image();
+		coinImage.src = this.app.IMAGES["coinImage"];
+		pBlue.addPlanetObject(this.utils, new app.Coin(this.drawLib,coinImage), 0,0);
 	},
     
 	moveSprites : function(){
@@ -80,7 +84,7 @@ app.game = {
 		}
 		
 		this.planets.forEach(function(planet){
-			planet.update(this.dt);
+			planet.update(this.dt, this.player);
 			if(this.collides(planet,this.player)){
 				this.player.setPlanet(planet);
 			}
@@ -193,11 +197,13 @@ app.game = {
 	createRandomPlanet: function(){
 		var planet = new app.Planet(180,400,50, "red", this.drawLib);
 		this.planets.push(planet);
+		return planet;
 	},
 	
 	createPlanet: function(x,y,rad,color){
 		var planet = new app.Planet(x,y,rad, color, this.drawLib);
 		this.planets.push(planet);
+		return planet;
 	},
 	
 	resumeSoundtrack: function(){

@@ -20,11 +20,7 @@ app.KEYBOARD = {
 app.keydown = [];
 
 app.IMAGES = {
-	shipImage:	"images/Hunter1.png",
-	enemyImage:	"images/Drone1.png",
-	explosionImage: "images/explosion.png",
-	explosionImage2: "images/explosion2.png",
-	explosionImage3: "images/explosion3.png",
+	coinImage:	"images/coin_sprites.png",
 };
 
 //http://indiegamr.com/generate-repeatable-random-numbers-in-js/
@@ -56,6 +52,7 @@ window.onload = function(){
 	});
 	
 	app.queue.loadManifest([
+		{id:	"coinImage",		src:	"images/coin_sprites.png"},
 		{id:	"soundtrack",		src:	"sounds/soundtrack.mp3"},
 	]);
 	

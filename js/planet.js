@@ -15,6 +15,8 @@ app.Planet = function(){
 		
 		this.gravity = this.radius*0.1;
 		
+		this.surfaceObjects = [];
+		
 		//Generating image
 		var canv = this.drawLib.getTempCanvas(this.width, this.width);
 		var ctx = canv.getContext("2d");
@@ -73,50 +75,64 @@ app.Planet = function(){
 		
 
 	var p = Planet.prototype;
-	p.utils = undefined;
 	
-	  p.draw = function(ctx) {
-			var halfW = this.width/2;
-			var halfH = this.height/2;
-			
+	p.draw = function(ctx) {
+		var halfW = this.width/2;
+		var halfH = this.height/2;
+		
+		ctx.save();
+		ctx.translate(this.x, this.y);
+		if(this.image){
 			ctx.save();
-			ctx.translate(this.x, this.y);
-			if(this.image){
-				ctx.save();
-				ctx.rotate(this.spin);
-				ctx.drawImage(this.influenceImage, -halfW, -halfH, this.width, this.width);
-				ctx.restore();
-				ctx.drawImage(this.image, -halfW, -halfH, this.width, this.width);
-			}else{
-				console.log("NO IMAGE");
-				//Planet's fill
-				ctx.fillStyle = this.color;
-				ctx.beginPath();
-				ctx.arc(0, 0, this.innerRadius, 0, Math.PI*2);
-				ctx.fill();
-				
-				//Planets area of influence
-				ctx.strokeStyle = this.color;
-				ctx.setLineDash([5]);
-				ctx.beginPath();
-				ctx.arc(0, 0, this.radius, 0, Math.PI*2);
-				ctx.stroke();
-			}
+			ctx.rotate(this.spin);
+			ctx.drawImage(this.influenceImage, -halfW, -halfH, this.width, this.width);
 			ctx.restore();
-	  };
+			ctx.drawImage(this.image, -halfW, -halfH, this.width, this.width);
+		}else{
+			console.log("NO IMAGE");
+			//Planet's fill
+			ctx.fillStyle = this.color;
+			ctx.beginPath();
+			ctx.arc(0, 0, this.innerRadius, 0, Math.PI*2);
+			ctx.fill();
+			
+			//Planets area of influence
+			ctx.strokeStyle = this.color;
+			ctx.setLineDash([5]);
+			ctx.beginPath();
+			ctx.arc(0, 0, this.radius, 0, Math.PI*2);
+			ctx.stroke();
+		}
+		ctx.restore();
+		
+		this.surfaceObjects.forEach(function(obj){
+			obj.draw(ctx);
+		},this);
+  };
 	
-	p.update = function(dt) {
+	p.update = function(dt, player) {
 		//this.spin += Math.PI/30*dt;
-	  };
-	  
-	 p.explode  = function() {
-		this.active = false;
-	  };
-	  
-	  // private
-	  function inBounds(obj) {
+		if(player.planet == this){ //Player on planet
+			//check object collisions
+		}
+	};
+	
+	//surfaceOffset is number of pixels offset from the planet's surface to display the object
+	p.addPlanetObject = function(utils, object, angle, surfaceOffset) {
+		//Set rotation of object.
+		object.planet = this;
+		object.angle = angle + Math.PI/2;
+		var vec = utils.rotateVector([this.innerRadius + surfaceOffset + object.height/2,0], angle);
+		object.x = this.x + vec.x;
+		object.y = this.y + vec.y;
+		
+		this.surfaceObjects.push(object);
+	}
+
+	// private
+	function inBounds(obj) {
 		return obj.y <= obj.canvasHeight + obj.height * 0.5;
-	  };
+	};
 	
 	return Planet;
 	
