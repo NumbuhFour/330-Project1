@@ -7,10 +7,17 @@ app.Coin = function(){
 		this.planet = undefined;
 		
 		this.imgWidth = 10;
-		this.imgHeight = 13;
-		this.width = 50;
-		this.height = 65;
+		this.imgHeight = 14;
+		this.width = 30;
+		this.height = 39;
+		this.radius = this.height;
 		this.drawLib = drawLib;
+		
+		this.active = true;
+		this.collected = false;
+		this.alpha = 1;
+		
+		this.sprite = 0;
 		
 		/*//Generating image
 		var canv = this.drawLib.getTempCanvas(this.width, this.width);
@@ -41,9 +48,11 @@ app.Coin = function(){
 		ctx.save();
 		ctx.translate(this.x, this.y);
 		ctx.rotate(this.angle);
+		
 		if(this.image){
-			ctx.imageSmoothingEnabled = false; /// future
-			ctx.drawImage(this.image, 0, this.imgHeight, this.imgWidth, this.imgHeight, -halfW,-halfH,this.width,this.height);
+			ctx.globalAlpha = this.alpha;
+			ctx.imageSmoothingEnabled = false;
+			ctx.drawImage(this.image, this.imgWidth * Math.floor(this.sprite), this.imgHeight, this.imgWidth, this.imgHeight, -halfW,-halfH,this.width,this.height);
 		}else{
 			console.log("NO IMAGE");
 			ctx.fillStyle = "yellow";
@@ -55,10 +64,22 @@ app.Coin = function(){
 			ctx.stroke();
 		}
 		ctx.restore();
-  };
+	};
+	
+	p.update = function(dt){
+		if(this.collected){
+			this.alpha -= 1.2*dt;
+			this.x -=  Math.cos(this.angle+Math.PI/2) * 60*dt;
+			this.y -=  Math.sin(this.angle+Math.PI/2) * 60*dt;//Float up
+			if(this.alpha <= 0) this.active = false;
+		}
+		
+		this.sprite += 5*dt;
+		if(this.sprite >= 5) this.sprite = 0;
+	}
 	
 	p.onTouch = function(player) {
-		
+		this.collected = true;
 	};
 
 	// private

@@ -114,7 +114,25 @@ app.Planet = function(){
 		//this.spin += Math.PI/30*dt;
 		if(player.planet == this){ //Player on planet
 			//check object collisions
+			this.surfaceObjects.forEach(function(obj){
+				obj.update(dt);
+				
+				var dx = player.x - obj.x;
+				var dy = player.y - obj.y;
+				var dist = obj.radius + player.radius;
+				if(dx*dx+dy*dy < dist*dist){ //Collision
+					obj.onTouch(player);
+				}
+				
+			},this);
 		}
+		this.surfaceObjects.forEach(function(obj){
+			obj.update(dt);
+		},this);
+		
+		this.surfaceObjects = this.surfaceObjects.filter(function(obj){
+			return obj.active; //Remove inactive objects
+		});
 	};
 	
 	//surfaceOffset is number of pixels offset from the planet's surface to display the object
