@@ -20,7 +20,7 @@ app.player = {
 	flySpeed: 20, //Flying in space speed
 	spinSpeed: Math.PI, //Spinning in space speed
 	walkSpeed: 100, //Walking on land speed
-	thrust: 150,// Thrust off planet speed
+	thrust: 30,// Thrust off planet speed
 	tangentSpeed: 10,
 	orientSpeed: Math.PI*1.8, //Speed of auto-orientation with planet
 	
@@ -272,7 +272,7 @@ app.player = {
 			this.planet = planet;
 			this.walkSpeedAngle = -1;
 			if(planet){
-				this.thrust = planet.gravity + 2;
+				this.thrust = Math.max(planet.gravity -4, 30);
 				//Get angle between our position and the planet's right vector (radians=0)
 				this.angleWithPlanet = 
 					this.utils.getAngleBetween( 	[this.x - planet.x, this.y - planet.y],
