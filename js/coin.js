@@ -79,6 +79,9 @@ app.Coin = function(){
 	}
 	
 	p.onTouch = function(player) {
+		if(!this.collected){
+			player.score += 100;
+		}
 		this.collected = true;
 	};
 

@@ -41,6 +41,7 @@ app.player = {
 	
 	maxFuel: 1000,
 	fuel: 1000,
+	score: 0,
 	
 	init: function(){
 		this.grad=ctx.cr
@@ -301,6 +302,12 @@ app.player = {
 	
 	getRightVector: function(scale){
 		return this.utils.rotateVector([scale,0], this.angle);
+	},
+	
+	getSpeed: function(){
+		var speed = Math.sqrt(this.xVel*this.xVel + this.yVel * this.yVel);
+		if(Math.abs(speed) < 0.01) speed = 0;
+		return speed;
 	},
 	
 	drawDebug: function(ctx){

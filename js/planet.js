@@ -1,7 +1,10 @@
 "use strict";
 app.Planet = function(){
-	function Planet(x,y,radius, color, drawLib) {
+	function Planet(name, x,y,radius, color, drawLib) {
+		this.name = name;
 		this.color = color;
+		
+		this.extraInfo = {};
 		
 		this.x = x;
 		this.y = y;

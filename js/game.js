@@ -20,7 +20,6 @@ app.game = {
 	utils: undefined,
 	
 	player: undefined,
-	score : 0,
 	
 	dt: 1/60.0,
 	app: undefined,
@@ -55,9 +54,13 @@ app.game = {
 		this.update();
 		
 		//Make planets
-		this.createPlanet(180,400,50, "red");
-		var pGreen = this.createPlanet(400,50,100, "green");
-		var pBlue = this.createPlanet(900,900,200,"blue");
+		var pRed = this.createPlanet("Redius", 180,400,50, "red");
+		var pGreen = this.createPlanet("Grun", 400,50,100, "green");
+		var pBlue = this.createPlanet("Blueton", 900,900,200,"blue");
+		
+		pRed.extraInfo = {"Silly Names":16};
+		pGreen.extraInfo = {"Gas Provider":"BP"};
+		pBlue.extraInfo = {"Last Visitor":"Bill Gates"};
 		
 		var coinImage = new Image();
 		coinImage.src = this.app.IMAGES["coinImage"];
@@ -148,6 +151,8 @@ app.game = {
 		}
 		
 		this.ctx.fillStyle = "black";
+		this.strokeStyle = "black";
+		this.ctx.lineWidth = 5;
 		if(fuelPerc <= 0.30 && this.fuelBlink % 4 < 2) this.ctx.fillStyle = "red";
 		
 		this.ctx.fillRect(5,5,this.WIDTH-10, 20);
@@ -156,6 +161,55 @@ app.game = {
 		this.ctx.fillStyle = "green";
 		this.ctx.fillRect(10,10,(this.WIDTH-20)*fuelPerc, 10);
 		this.drawLib.text(this.ctx, "Fuel", this.WIDTH/2, 20, 15, "white");
+		
+		//data
+		this.ctx.save();
+		this.ctx.globalAlpha = 0.55;
+		this.strokeStyle = "black";
+		this.ctx.lineWidth = 2;
+		this.ctx.fillStyle = "cyan";
+		var textX = 8;
+		var textY = 43;
+		var tspc = 15; // Text spacing;
+		var ti = 0; //Text iter
+		
+		var numData = 3;
+		var width = 9;
+		var maxChar = 13;
+		
+		var pplan = this.player.planet;
+		if(pplan){
+			numData += 2;
+			
+			if(("Planet: " + pplan.name).length + 1 > maxChar) maxChar = ("Planet: " + pplan.name).length + 1;
+			
+			for(var key in pplan.extraInfo){
+				numData ++;
+				var str = key + ": " + pplan.extraInfo[key];
+				if(str.length + 1 > maxChar) maxChar = str.length + 1;
+			}
+		}
+		
+		var height = tspc*numData;
+		this.ctx.fillRect(5,30, maxChar*width, height+5);
+		this.ctx.strokeRect(5,30, maxChar*width, height+5);
+		
+		var textColor = "rgb(0,0,120)";
+		this.drawLib.text(this.ctx, "Score: " + this.player.score, textX, textY + tspc*(ti++), 15, textColor);
+		this.drawLib.text(this.ctx, "Speed: " + this.player.getSpeed().toPrecision(3), textX, textY + tspc*(ti++), 15, textColor);
+		this.drawLib.text(this.ctx, "Orien: " + this.player.angle.toPrecision(3), textX, textY + tspc*(ti++), 15, textColor);
+		
+		if(pplan){
+			this.drawLib.text(this.ctx, "Planet: " + pplan.name, textX, textY + tspc*(ti++), 15, pplan.color);
+			this.drawLib.text(this.ctx, "Size: " + (pplan.radius*2*Math.PI).toPrecision(4), textX, textY + tspc*(ti++), 15, textColor);
+			
+			for(var key in pplan.extraInfo){
+				this.drawLib.text(this.ctx, key + ": " + pplan.extraInfo[key], textX, textY + tspc*(ti++), 15, textColor);
+			}
+			
+		}
+		
+		this.ctx.restore();
 	},
 	
     update : function(){
@@ -211,14 +265,14 @@ app.game = {
 				ay + a.height > by;
 	},
 	
-	createRandomPlanet: function(){
-		var planet = new app.Planet(180,400,50, "red", this.drawLib);
+	createRandomPlanet: function(name){
+		var planet = new app.Planet(name, 180,400,50, "red", this.drawLib);
 		this.planets.push(planet);
 		return planet;
 	},
 	
-	createPlanet: function(x,y,rad,color){
-		var planet = new app.Planet(x,y,rad, color, this.drawLib);
+	createPlanet: function(name, x,y,rad,color){
+		var planet = new app.Planet(name, x,y,rad, color, this.drawLib);
 		this.planets.push(planet);
 		return planet;
 	},
