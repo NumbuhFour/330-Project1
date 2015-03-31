@@ -80,12 +80,14 @@ app.game = {
 			var objects = p.objects;
 			
 			var planet = this.createPlanet(name,x,y,size,col);
+			planet.extraInfo = info;
 			this.loadPlanetObjects(planet,objects);
 		}
 	},
 	
 	loadPlanetObjects:function(planet, objects){
-		for(var o in objects){
+		for(var i in objects){
+			var o = objects[i];
 			var item = undefined;
 			switch(o.type){
 				case "fuel":
@@ -97,8 +99,9 @@ app.game = {
 			}
 			if(item != undefined){
 				var off = 0;
+				var angle = o.angle;
 				if(o.surfaceOffset) off = o.surfaceOffset;
-				planet.addPlanetObject(item, angle*(180/Math.PI), off);
+				planet.addPlanetObject(this.app.utils, item, angle*(Math.PI/180), off);
 			}else{
 				console.error("Unable to add item to planet: " + o);
 			}
