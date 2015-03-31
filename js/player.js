@@ -47,6 +47,14 @@ app.player = {
 		this.grad=ctx.cr
 	},
 	
+	reset: function(){
+		this.fuel = this.maxFuel;
+		this.xVel = this.yVel = this.rVel = 0;
+		this.angle = 0;
+		this.setPlanet(undefined);
+		this.onGround = false;
+	},
+	
 	draw: function(ctx) {
 		var halfw = this.width/2;
 		var halfh = this.height/2;

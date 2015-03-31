@@ -24,6 +24,57 @@ app.IMAGES = {
 	fuelImage:	"images/fuel_sprites.png",
 };
 
+app.LEVELS = [
+	{
+		spawn:{x:0,y:0},
+		planets:[
+			{
+				name:"Redius",
+				position:{x:180,y:400},
+				color:"red",
+				size:50,
+				info:{ "Silly Names": 16},
+				objects:[]
+			},
+			{
+				name:"Grun",
+				position:{x:400,y:50},
+				color:"green",
+				size:100,
+				info:{"Gas Provider":"BP"},
+				objects:[
+					{type:"fuel", angle:0},
+					{type:"fuel", angle:120},
+					{type:"fuel", angle:240},
+				]
+			},
+			{
+				name:"Bluton",
+				position:{x:900,y:900},
+				color:"blue",
+				size:200,
+				info:{"Last Visitor":"Bill Gates"},
+				objects:[
+					{type:"coin", angle:0},
+					{type:"coin", angle:36},
+					{type:"coin", angle:36*2},
+					{type:"coin", angle:36*3},
+					{type:"coin", angle:36*4},
+					{type:"coin", angle:36*5},
+					{type:"coin", angle:36*6},
+					{type:"coin", angle:36*7},
+					{type:"coin", angle:36*8},
+					{type:"coin", angle:36*9},
+				]
+			}
+			
+		],
+		enemies:[
+			
+		]
+	},
+]
+
 //http://indiegamr.com/generate-repeatable-random-numbers-in-js/
 Math.seededRandom = function(max, min) {
     max = max || 1;

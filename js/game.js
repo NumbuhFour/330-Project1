@@ -31,6 +31,7 @@ app.game = {
 	camr:0,
 	
 	fuelBlink: 0,
+	level: 0,
 	
 	planets: [],
     
@@ -54,25 +55,70 @@ app.game = {
 		this.update();
 		
 		//Make planets
-		var pRed = this.createPlanet("Redius", 180,400,50, "red");
-		var pGreen = this.createPlanet("Grun", 400,50,100, "green");
-		var pBlue = this.createPlanet("Blueton", 900,900,200,"blue");
-		
-		pRed.extraInfo = {"Silly Names":16};
-		pGreen.extraInfo = {"Gas Provider":"BP"};
-		pBlue.extraInfo = {"Last Visitor":"Bill Gates"};
-		
-		var coinImage = new Image();
-		coinImage.src = this.app.IMAGES["coinImage"];
-		var fuelImage = new Image();
-		fuelImage.src = this.app.IMAGES["fuelImage"];
-		
-		for(var i=0; i<10; i++)
-			pBlue.addPlanetObject(this.utils, new app.Coin(this.drawLib,coinImage), Math.PI*2/10 * i,0);
-		
-		for(var i=0; i<3; i++)
-			pGreen.addPlanetObject(this.utils, new app.Fuel(this.drawLib,fuelImage), Math.PI*2/3 * i,0);
+		this.coinImage = new Image();
+		this.coinImage.src = this.app.IMAGES["coinImage"];
+		this.fuelImage = new Image();
+		this.fuelImage.src = this.app.IMAGES["fuelImage"];
+		this.loadLevel(0);
 	},
+	
+	loadLevel:function(level){
+		this.player.reset();
+		this.planets = [];
+		var data = app.LEVELS[level];
+		this.player.x = data.spawn.x
+		this.player.x = data.spawn.y;
+		
+		for(var i=0; i < data.planets.length; i++){
+			var p = data.planets[i];
+			var name = p.name;
+			var x = p.position.x;
+			var y = p.position.y;
+			var col = p.color;
+			var size = p.size;
+			var info = p.info;
+			var objects = p.objects;
+			
+			var planet = this.createPlanet(name,x,y,size,col);
+			this.loadPlanetObjects(planet,objects);
+		}
+	},
+	
+	loadPlanetObjects:function(planet, objects){
+		for(var o in objects){
+			var item = undefined;
+			switch(o.type){
+				case "fuel":
+					item = new app.Fuel(this.drawLib, this.fuelImage);
+					break;
+				case "coin":
+					item = new app.Coin(this.drawLib, this.coinImage);
+					break;
+			}
+			if(item != undefined){
+				var off = 0;
+				if(o.surfaceOffset) off = o.surfaceOffset;
+				planet.addPlanetObject(item, angle*(180/Math.PI), off);
+			}else{
+				console.error("Unable to add item to planet: " + o);
+			}
+			
+		}
+	},
+	
+/*
+{
+name:"Grun",
+position:{x:400,y:50},
+color:"green",
+size:100,
+info:{"Gas Provider":"BP"},
+objects:[
+	{type:"fuel", angle:0},
+	{type:"fuel", angle:120},
+	{type:"fuel", angle:240},
+]
+},*/
     
 	moveSprites : function(){
 		this.player.update(this.dt);
