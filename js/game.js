@@ -215,10 +215,32 @@ objects:[
 		this.camr = (pangle+this.camr)/2;
 		this.camr %= (Math.PI*2);
 		
+		var grid = 170;
+		var sx = -this.WIDTH;//-this.camx%this.WIDTH;
+		var sy = -this.HEIGHT;//-this.camy%this.HEIGHT;
+		this.ctx.save();
+		this.ctx.translate(this.WIDTH/2, this.HEIGHT/2);
+		this.ctx.rotate(-this.camr);
+		this.ctx.translate(-this.camx%grid, -this.camy%grid);
+		this.ctx.beginPath();
+		this.ctx.lineWidth = 1;
+		this.ctx.strokeStyle = "grey";
+		for(var gx = 0; gx < 10; gx++){
+			this.ctx.moveTo(gx*grid + sx, sy);
+			this.ctx.lineTo(gx*grid + sx, sy + grid*10);
+		}
+		for(var gy = 0; gy < 10; gy++){
+			this.ctx.moveTo(sx, gy*grid + sy);
+			this.ctx.lineTo(sx + grid*10,gy*grid + sy);
+		}
+		this.ctx.stroke();
+		this.ctx.restore();
+		
 		//Camera
 		this.ctx.translate(this.WIDTH/2, this.HEIGHT/2);
 		this.ctx.rotate(-this.camr);
 		this.ctx.translate(-this.camx, -this.camy);
+		
 		
 		this.planets.forEach(function(planet){
 			planet.draw(this.ctx);
@@ -243,7 +265,7 @@ objects:[
 		}
 		
 		this.ctx.fillStyle = "black";
-		this.strokeStyle = "black";
+		this.ctx.strokeStyle = "black";
 		this.ctx.lineWidth = 5;
 		if(fuelPerc <= 0.30 && this.fuelBlink % 4 < 2) this.ctx.fillStyle = "red";
 		
@@ -257,7 +279,7 @@ objects:[
 		//data
 		this.ctx.save();
 		this.ctx.globalAlpha = 0.55;
-		this.strokeStyle = "black";
+		this.ctx.strokeStyle = "black";
 		this.ctx.lineWidth = 2;
 		this.ctx.fillStyle = "cyan";
 		var textX = 8;
