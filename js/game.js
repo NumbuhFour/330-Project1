@@ -35,6 +35,10 @@ app.game = {
 	
 	planets: [],
 	keysLeft: 0,
+	
+	dead: false,
+	victory: false,
+	lastScore: 0,
     
     // methods
 	init : function(player, drawLib) {
@@ -64,16 +68,21 @@ app.game = {
 		this.doorImage.src = this.app.IMAGES["doorImage"];
 		this.keyImage = new Image();
 		this.keyImage.src = this.app.IMAGES["keyImage"];
+		this.spikesImage = new Image();
+		this.spikesImage.src = this.app.IMAGES["spikesImage"];
 		this.loadLevel(0);
 	},
 	
 	loadLevel:function(level){
+		this.player.score = this.lastScore;
+		this.dead = false;
+		this.victory = false;
 		this.player.reset();
 		this.planets = [];
 		this.keysLeft = 0;
 		var data = app.LEVELS[level];
 		this.player.x = data.spawn.x
-		this.player.x = data.spawn.y;
+		this.player.y = data.spawn.y;
 		
 		for(var i=0; i < data.planets.length; i++){
 			var p = data.planets[i];
@@ -109,6 +118,9 @@ app.game = {
 					item = new app.Key(this, this.drawLib, this.keyImage);
 					this.keysLeft ++;
 					break;
+				case "spikes":
+					item = new app.Spikes(this, this.drawLib, this.spikesImage);
+					break;
 			}
 			if(item != undefined){
 				var off = 0;
@@ -127,7 +139,17 @@ app.game = {
 	},
 	
 	nextLevel: function(){
-		
+		this.lastScore = this.player.score;
+		this.level++;
+		if(this.level >= this.app.LEVELS.length){
+			this.victory = true;
+		}else{
+			this.loadLevel(this.level);
+		}
+	},
+	
+	gameOver: function(){
+		this.dead = true;
 	},
 	
 /*
@@ -283,6 +305,36 @@ objects:[
 	},
 	
     update : function(){
+		
+		if(this.app.keydown[this.app.KEYBOARD.KEY_R]){
+			this.loadLevel(this.level);
+		}
+		
+		if(this.dead){
+			this.lastScore = 0;
+			this.level = 0;
+			this.drawLib.clear(this.ctx, 0,0,this.WIDTH, this.HEIGHT);
+			requestAnimationFrame( this.update.bind(this) );
+			
+			this.ctx.save();
+			this.ctx.textAlign = "center";
+			this.drawLib.text(this.ctx,"Game Over", this.WIDTH/2,this.HEIGHT/2,40,"red");
+			this.drawLib.text(this.ctx,"r to restart", this.WIDTH/2,this.HEIGHT/2+20,16,"red");
+			this.ctx.restore();
+			return;
+		}else if(this.victory){
+			this.lastScore = 0;
+			this.level = 0;
+			this.drawLib.clear(this.ctx, 0,0,this.WIDTH, this.HEIGHT);
+			requestAnimationFrame( this.update.bind(this) );
+			
+			this.ctx.save();
+			this.ctx.textAlign = "center";
+			this.drawLib.text(this.ctx,"Victory!", this.WIDTH/2,this.HEIGHT/2,40,"green");
+			this.drawLib.text(this.ctx,"r to restart", this.WIDTH/2,this.HEIGHT/2+20,16,"green");
+			this.ctx.restore();
+			return;
+		}
 		
 		this.moveSprites();
 		

@@ -50,6 +50,8 @@ app.player = {
 	reset: function(){
 		this.fuel = this.maxFuel;
 		this.xVel = this.yVel = this.rVel = 0;
+		this.x = 0;
+		this.y = 0;
 		this.angle = 0;
 		this.setPlanet(undefined);
 		this.onGround = false;

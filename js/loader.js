@@ -15,7 +15,8 @@ app.KEYBOARD = {
 	"KEY_UP": 38,
 	"KEY_RIGHT": 39,
 	"KEY_DOWN": 40,
-	"KEY_SPACE": 32
+	"KEY_SPACE": 32,
+	"KEY_R": 82
 };
 app.keydown = [];
 
@@ -24,11 +25,12 @@ app.IMAGES = {
 	fuelImage:	"images/fuel_sprites.png",
 	doorImage:	"images/Door.png",
 	keyImage:	"images/key.png",
+	spikesImage:	"images/spikes.png",
 };
 
 app.LEVELS = [
-	{
-		spawn:{x:0,y:0},
+	{ // ###### LEVEL 1 ##########
+		spawn:{x:320,y:420},
 		planets:[
 			{
 				name:"Redius",
@@ -70,11 +72,64 @@ app.LEVELS = [
 					{type:"coin", angle:36*7},
 					{type:"coin", angle:36*8},
 					{type:"coin", angle:36*9},
+					
+					{type:"spikes", angle:15},
+					{type:"spikes", angle:36+15},
+					{type:"spikes", angle:36*2+15},
+					{type:"spikes", angle:36*3+15},
 				]
 			}
 			
-		],
-		enemies:[
+		]
+	},
+	
+	{ // ###### LEVEL 2 ##########
+		spawn:{x:320,y:420},
+		planets:[
+			{
+				name:"",
+				position:{x:400,y:-250},
+				color:"green",
+				size:50,
+				info:{ "Silly Names": 16},
+				objects:[
+					{type:"door",angle:0}
+				]
+			},
+			{
+				name:"Bluton",
+				position:{x:900,y:900},
+				color:"blue",
+				size:100,
+				info:{"Gas Provider":"BP"},
+				objects:[
+					{type:"fuel", angle:0},
+					{type:"fuel", angle:90},
+					{type:"fuel", angle:180},
+					{type:"key", angle:270},
+				]
+			},
+			{
+				name:"Redius",
+				position:{x:200,y:400},
+				color:"red",
+				size:200,
+				info:{"Last Visitor":"Bill Gates"},
+				objects:[
+					{type:"coin", angle:0},
+					{type:"coin", angle:36},
+					{type:"coin", angle:36*2},
+					{type:"coin", angle:36*3},
+					{type:"coin", angle:36*4},
+					{type:"coin", angle:36*5},
+					{type:"coin", angle:36*6},
+					{type:"coin", angle:36*7},
+					{type:"coin", angle:36*8},
+					{type:"coin", angle:36*9},
+					
+					{type:"spikes", angle:36*3+15},
+				]
+			}
 			
 		]
 	},
@@ -113,6 +168,7 @@ window.onload = function(){
 		{id:	"fuelImage",		src:	"images/fuel_sprites.png"},
 		{id:	"doorImage",		src:	"images/Door.png"},
 		{id:	"keyImage",		src:	"images/key.png"},
+		{id:	"spikesImage",		src:	"images/spikes.png"},
 		{id:	"soundtrack",		src:	"sounds/soundtrack.mp3"},
 	]);
 	
