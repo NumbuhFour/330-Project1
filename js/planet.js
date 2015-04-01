@@ -51,6 +51,17 @@ app.Planet = function(){
 		ctx.fill();
 		ctx.stroke();
 		
+		var ingrad = ctx.createRadialGradient(this.radius+3,this.radius+3, 0, this.radius+3, this.radius+3, this.innerRadius);
+		ingrad.addColorStop(0,"rgba(0,0,0,0)");
+		ingrad.addColorStop(0.4,"rgba(0,0,0,0)");
+		ingrad.addColorStop(1,"rgba(0,0,0,0.6)");
+		ctx.fillStyle = ingrad;
+		ctx.beginPath();
+		ctx.moveTo(this.radius+3,this.radius+3);
+		ctx.arc(this.radius+3, this.radius+3, this.innerRadius, 0,Math.PI*2);
+		ctx.fill();
+		
+		
 		this.image = this.drawLib.makeImage(canv);
 		
 		canv = this.drawLib.getTempCanvas(this.width, this.width);
