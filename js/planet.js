@@ -140,6 +140,7 @@ app.Planet = function(){
 	
 	//surfaceOffset is number of pixels offset from the planet's surface to display the object
 	p.addPlanetObject = function(utils, object, angle, surfaceOffset) {
+		this.utils = utils;
 		//Set rotation of object.
 		object.planet = this;
 		object.angle = angle + Math.PI/2;

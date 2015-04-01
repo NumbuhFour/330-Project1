@@ -34,6 +34,7 @@ app.game = {
 	level: 0,
 	
 	planets: [],
+	keysLeft: 0,
     
     // methods
 	init : function(player, drawLib) {
@@ -59,12 +60,15 @@ app.game = {
 		this.coinImage.src = this.app.IMAGES["coinImage"];
 		this.fuelImage = new Image();
 		this.fuelImage.src = this.app.IMAGES["fuelImage"];
+		this.doorImage = new Image();
+		this.doorImage.src = this.app.IMAGES["doorImage"];
 		this.loadLevel(0);
 	},
 	
 	loadLevel:function(level){
 		this.player.reset();
 		this.planets = [];
+		this.keysLeft = 0;
 		var data = app.LEVELS[level];
 		this.player.x = data.spawn.x
 		this.player.x = data.spawn.y;
@@ -95,6 +99,9 @@ app.game = {
 					break;
 				case "coin":
 					item = new app.Coin(this.drawLib, this.coinImage);
+					break;
+				case "door":
+					item = new app.Door(this, this.drawLib, this.doorImage);
 					break;
 			}
 			if(item != undefined){

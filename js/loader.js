@@ -22,6 +22,7 @@ app.keydown = [];
 app.IMAGES = {
 	coinImage:	"images/coin_sprites.png",
 	fuelImage:	"images/fuel_sprites.png",
+	doorImage:	"images/Door.png",
 };
 
 app.LEVELS = [
@@ -34,7 +35,9 @@ app.LEVELS = [
 				color:"red",
 				size:50,
 				info:{ "Silly Names": 16},
-				objects:[]
+				objects:[
+					{type:"door",angle:0}
+				]
 			},
 			{
 				name:"Grun",
@@ -106,6 +109,7 @@ window.onload = function(){
 	app.queue.loadManifest([
 		{id:	"coinImage",		src:	"images/coin_sprites.png"},
 		{id:	"fuelImage",		src:	"images/fuel_sprites.png"},
+		{id:	"doorImage",		src:	"images/Door.png"},
 		{id:	"soundtrack",		src:	"sounds/soundtrack.mp3"},
 	]);
 	
