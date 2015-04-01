@@ -62,6 +62,8 @@ app.game = {
 		this.fuelImage.src = this.app.IMAGES["fuelImage"];
 		this.doorImage = new Image();
 		this.doorImage.src = this.app.IMAGES["doorImage"];
+		this.keyImage = new Image();
+		this.keyImage.src = this.app.IMAGES["keyImage"];
 		this.loadLevel(0);
 	},
 	
@@ -103,6 +105,10 @@ app.game = {
 				case "door":
 					item = new app.Door(this, this.drawLib, this.doorImage);
 					break;
+				case "key":
+					item = new app.Key(this, this.drawLib, this.keyImage);
+					this.keysLeft ++;
+					break;
 			}
 			if(item != undefined){
 				var off = 0;
@@ -114,6 +120,10 @@ app.game = {
 			}
 			
 		}
+	},
+	
+	keyObtained: function(){
+		this.keysLeft --;
 	},
 	
 /*

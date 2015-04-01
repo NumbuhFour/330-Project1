@@ -23,6 +23,7 @@ app.IMAGES = {
 	coinImage:	"images/coin_sprites.png",
 	fuelImage:	"images/fuel_sprites.png",
 	doorImage:	"images/Door.png",
+	keyImage:	"images/key.png",
 };
 
 app.LEVELS = [
@@ -47,8 +48,9 @@ app.LEVELS = [
 				info:{"Gas Provider":"BP"},
 				objects:[
 					{type:"fuel", angle:0},
-					{type:"fuel", angle:120},
-					{type:"fuel", angle:240},
+					{type:"fuel", angle:90},
+					{type:"fuel", angle:180},
+					{type:"key", angle:270},
 				]
 			},
 			{
@@ -110,6 +112,7 @@ window.onload = function(){
 		{id:	"coinImage",		src:	"images/coin_sprites.png"},
 		{id:	"fuelImage",		src:	"images/fuel_sprites.png"},
 		{id:	"doorImage",		src:	"images/Door.png"},
+		{id:	"keyImage",		src:	"images/key.png"},
 		{id:	"soundtrack",		src:	"sounds/soundtrack.mp3"},
 	]);
 	

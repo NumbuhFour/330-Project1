@@ -1,6 +1,6 @@
 "use strict";
-app.Door = function(){
-	function Door(game, drawLib, image) {
+app.Key = function(){
+	function Key(game, drawLib, image) {
 		this.game = game;
 		
 		this.x = undefined;
@@ -15,6 +15,8 @@ app.Door = function(){
 		this.drawLib = drawLib;
 		
 		this.active = true;
+		this.collected = false;
+		this.alpha = 1;
 		
 		this.sprite = 0;
 		
@@ -37,7 +39,7 @@ app.Door = function(){
 	};
 		
 
-	var p = Door.prototype;
+	var p = Key.prototype;
 	p.utils = undefined;
 	
 	p.draw = function(ctx) {
@@ -49,8 +51,9 @@ app.Door = function(){
 		ctx.rotate(this.angle);
 		
 		if(this.image){
+			ctx.globalAlpha = this.alpha;
 			ctx.imageSmoothingEnabled = false;
-			ctx.drawImage(this.image, this.imgWidth * Math.floor(this.sprite), this.imgHeight* (this.isLocked() ? 1:0), this.imgWidth, this.imgHeight, -halfW,-halfH,this.width,this.height);
+			ctx.drawImage(this.image, this.imgWidth * Math.floor(this.sprite), 0, this.imgWidth, this.imgHeight, -halfW,-halfH,this.width,this.height);
 		}else{
 			console.log("NO IMAGE");
 			ctx.fillStyle = "yellow";
@@ -65,18 +68,22 @@ app.Door = function(){
 	};
 	
 	p.update = function(dt){
+		if(this.collected){
+			this.alpha -= 1.2*dt;
+			this.x -=  Math.cos(this.angle+Math.PI/2) * 60*dt;
+			this.y -=  Math.sin(this.angle+Math.PI/2) * 60*dt;//Float up
+			if(this.alpha <= 0) this.active = false;
+		}
+		
 		this.sprite += 5*dt;
-		if(this.sprite >= 12) this.sprite = 0;
+		if(this.sprite >= 8) this.sprite = 0;
 	};
 	
 	p.onTouch = function(player) {
-		if(!this.isLocked()){
-			console.log("Next level!");
+		if(!this.collected){
+			this.game.keyObtained();
 		}
-	};
-	
-	p.isLocked = function(){
-		return this.game.keysLeft > 0;
+		this.collected = true;
 	};
 
 	// private
@@ -84,6 +91,6 @@ app.Door = function(){
 		return obj.y <= obj.canvasHeight + obj.height * 0.5;
 	};
 	
-	return Door;
+	return Key;
 	
 }();

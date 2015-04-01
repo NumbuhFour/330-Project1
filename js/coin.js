@@ -10,7 +10,7 @@ app.Coin = function(){
 		this.imgHeight = 14;
 		this.width = 30;
 		this.height = 39;
-		this.radius = this.height;
+		this.radius = this.height/4;
 		this.drawLib = drawLib;
 		
 		this.active = true;
