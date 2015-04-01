@@ -126,6 +126,10 @@ app.game = {
 		this.keysLeft --;
 	},
 	
+	nextLevel: function(){
+		
+	},
+	
 /*
 {
 name:"Grun",

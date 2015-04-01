@@ -17,6 +17,7 @@ app.Door = function(){
 		this.active = true;
 		
 		this.sprite = 0;
+		this.touched = false;
 		
 		/*//Generating image
 		var canv = this.drawLib.getTempCanvas(this.width, this.width);
@@ -70,8 +71,9 @@ app.Door = function(){
 	};
 	
 	p.onTouch = function(player) {
-		if(!this.isLocked()){
-			console.log("Next level!");
+		if(!this.isLocked() && !this.touched){
+			this.game.nextLevel();
+			this.touched = true;
 		}
 	};
 	
