@@ -169,7 +169,7 @@ window.onload = function(){
 		{id:	"doorImage",		src:	"images/Door.png"},
 		{id:	"keyImage",		src:	"images/key.png"},
 		{id:	"spikesImage",		src:	"images/spikes.png"},
-		{id:	"soundtrack",		src:	"sounds/soundtrack.mp3"},
+		{id:	"soundtrack",		src:	"http://thefourth.me/330-project1/sounds/soundtrack.mp3"},
 	]);
 	
 	
