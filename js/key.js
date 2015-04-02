@@ -82,6 +82,8 @@ app.Key = function(){
 	p.onTouch = function(player) {
 		if(!this.collected){
 			this.game.keyObtained();
+			app.SOUNDS.coin.currentTime = 0;
+			app.SOUNDS.coin.play();
 		}
 		this.collected = true;
 	};
