@@ -133,19 +133,27 @@ app.player = {
 		
 		var vec = [planet.x - this.x, planet.y-this.y];
 		var dist = Math.round(Math.sqrt(vec[0]*vec[0] + vec[1]*vec[1]) - planet.radius - this.radius);
-		if(dist > 1000) dist = (dist/1000).toFixed(2) + "k"
+		var distDisplay = dist;
+		
+		if(dist > 1000) distDisplay = (dist/1000).toFixed(2) + "k"
 		vec = this.utils.normalizeVector(vec);
 		var ang = this.utils.getAngleBetween( [this.x - planet.x, this.y - planet.y], [1, 0]) - Math.PI/2;
 		
 		ctx.save();
 		ctx.globalAlpha = 0.5;
 		ctx.translate(this.x,this.y);
+		
 		ctx.translate(vec.x * this.radius*2, vec.y * this.radius*2);
+		
+		if(dist < 1000){
+			var scale = Math.max(dist/1000, 0.5);
+			ctx.scale(scale, scale);
+		}
 		
 		ctx.save();
 		ctx.rotate(ang);
 		ctx.textAlign = "center";
-		this.drawLib.text(ctx,dist + "m",0,0,12,planet.color);
+		this.drawLib.text(ctx,distDisplay + "m",0,0,12,planet.color);
 		ctx.restore();
 		
 		ctx.translate(vec.x * 25, vec.y * 25);
