@@ -5,12 +5,12 @@
 	<style type="text/css">
 		@font-face {
 			font-family: 'chunkfiveroman';
-			src: url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.eot');
-			src: url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
-				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.woff2') format('woff2'),
-				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.woff') format('woff'),
-				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.ttf') format('truetype'),
-				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.svg#chunkfiveroman') format('svg');
+			src: url('./fonts/chunkfive-webfont.eot');
+			src: url('./fonts/chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+				 url('./fonts/chunkfive-webfont.woff2') format('woff2'),
+				 url('./fonts/chunkfive-webfont.woff') format('woff'),
+				 url('./330-project1/fonts/chunkfive-webfont.ttf') format('truetype'),
+				 url('./330-project1/fonts/chunkfive-webfont.svg#chunkfiveroman') format('svg');
 			font-weight: normal;
 			font-style: normal;
 		}
@@ -62,6 +62,13 @@
 	</canvas>
 	<script src="http://code.createjs.com/preloadjs-0.4.1.min.js"> </script>
 	
+	<audio id="music" hidden>
+		<source src="sounds/soundtrack.mp3", type="audio/mpeg"/>
+	</audio>
+	<audio id="coinFX" hidden>
+		<source src="sounds/coin.wav", type="audio/wav"/>
+	</audio>
+	
 	<script src="js/drawLib.js"></script>
 	<script src="js/game.js"></script>
 	<script src="js/planet.js"></script>
@@ -86,53 +93,8 @@
 			<li> S: Toggle music </li>
 			<li> R: Reset level </li>
 		</ul>
-		<h2> Overview </h2>
-		<p> 
-			This is a small game written for 330-Rich Media Web App Dev 
-			<br/><br/>
-			The concept is a platformer jumping from gravitational bodies.<br/>
-			The dotted lines mark the influence range of each planet. Moving 
-			within them will cause you to be affected by the planet's gravity. 
-			<br/><br/>
-			The goal (to be implemented) will be to collect the gold on each 
-			of the planets while avoiding dangers, maintaining fuel, and not 
-			drifting off into the endless void of space. Then to reach the warp 
-			gate at the end of the map to move on to the next.
-			
-		</p>
-		<h2> Details </h2>
-		<p>
-			The skeleton of the code behind this is derived from the Blastem 
-			projected provided by my professor, Sean Boyle.
-			<br/>
-			The game works by applying basic physics (velocity & whatnot) to 
-			the player and spinning the canvas around using canvas 
-			tranformations. Each time velocity is applied to the player 
-			through movement a bit of fuel is taken away based on how much velocity 
-			is added. 
-		</p>
-		<h2> To Be (possibly) Implemented </h2>
-		<p>
-			<ul>
-				<li class="tbi"> <span class="tbi-title">Enemies:</span> Other ships floating around and patroling </li>
-				<li class="tbi" class="tbi"> <strike><span class="tbi-title">Hazards:</span> Spikes, acid pools, various other dangers on
-					certain planets to make your life difficult.
-				</strike></li>
-				<li class="tbi"> <span class="tbi-title"><strike>Multiple levels</span> </strike></li>
-				<li class="tbi"> <span class="tbi-title"><strike>Score tracking</strike></span> </li>
-				<li class="tbi"> <span class="tbi-title">Life tracking</span> </li>
-				<li class="tbi"> <span class="tbi-title">Images</span> </li>
-				<li class="tbi"> <span class="tbi-title">Sound effects</span> </li>
-			</ul>
-		</p>
-		<h2> Links </h2>
-		<p>
-			<ul>
-				<li>This is currently hosted on GitHub! <a href="https://github.com/fad4470/330-Project1/">Check it out!</a></li>
-				<li><a href="http://createjs.com/TweenJS">CreateJS</a> is used to load and manage sounds.</li>
-				<li><a href="http://createjs.com/Docs/PreloadJS/modules/PreloadJS.html">PreloadJS</a> from CreateJS is used to preload the images.</li>
-			</ul>
-		</p>
+		
+		<h2><a href="writeup.html">Click here for the writeup!</a></h2>
 	</div>
 </body>
 </html>

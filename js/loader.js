@@ -28,6 +28,11 @@ app.IMAGES = {
 	spikesImage:	"images/spikes.png",
 };
 
+app.SOUNDS = {
+	music:undefined,
+	coin:undefined,
+}
+
 app.LEVELS = [
 	{ // ###### LEVEL 1 ##########
 		spawn:{x:320,y:420},
@@ -150,6 +155,9 @@ app.seed = Math.random()*800;
 window.onload = function(){
 	console.log("window.onload called");
 	
+	app.SOUNDS.music = document.getElementById("music");
+	app.SOUNDS.coin = document.getElementById("coinFX");
+	
 	app.game.app = app;
 	app.game.utils = app.utils;
 	app.player.utils = app.utils;
@@ -169,7 +177,6 @@ window.onload = function(){
 		{id:	"doorImage",		src:	"images/Door.png"},
 		{id:	"keyImage",		src:	"images/key.png"},
 		{id:	"spikesImage",		src:	"images/spikes.png"},
-		{id:	"soundtrack",		src:	"http://thefourth.me/330-project1/sounds/soundtrack.mp3"},
 	]);
 	
 	

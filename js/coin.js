@@ -81,6 +81,8 @@ app.Coin = function(){
 	p.onTouch = function(player) {
 		if(!this.collected){
 			player.score += 100;
+			app.SOUNDS.coin.currentTime = 0;
+			app.SOUNDS.coin.play();
 		}
 		this.collected = true;
 	};

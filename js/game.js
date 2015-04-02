@@ -50,8 +50,9 @@ app.game = {
 		this.canvas.height = this.HEIGHT;
 		this.ctx = this.canvas.getContext('2d');
 		
-		this.soundtrack = createjs.Sound.play("soundtrack", {loop:-1, volume:0.4});
-		this.pauseSoundtrack();
+		this.soundtrack = this.app.SOUNDS.music;
+		this.soundtrack.loop = true;
+		this.soundtrack.play();
 		
 		this.camx = player.x;
 		this.camy = player.y;
@@ -352,7 +353,7 @@ objects:[
 			
 			this.ctx.save();
 			this.ctx.textAlign = "center";
-			this.drawLib.text(this.ctx,"Victory!", this.WIDTH/2,this.HEIGHT/2,40,"green");
+			this.drawLib.text(this.ctx,"Victory! Your score: " + this.player.score, this.WIDTH/2,this.HEIGHT/2,40,"green");
 			this.drawLib.text(this.ctx,"r to restart", this.WIDTH/2,this.HEIGHT/2+20,16,"green");
 			this.ctx.restore();
 			return;
@@ -422,7 +423,7 @@ objects:[
 	},
 	
 	resumeSoundtrack: function(){
-		this.soundtrack.resume();
+		this.soundtrack.play();
 	},
 	
 	pauseSoundtrack: function(){
@@ -430,6 +431,7 @@ objects:[
 	},
 	
 	toggleSoundtrack: function(){
+		console.log("TOGGLE");
 		this.soundtrackPaused = !this.soundtrackPaused;
 		if(this.soundtrackPaused)
 			this.pauseSoundtrack();

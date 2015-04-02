@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		@font-face {
+			font-family: 'chunkfiveroman';
+			src: url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.eot');
+			src: url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.woff2') format('woff2'),
+				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.woff') format('woff'),
+				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.ttf') format('truetype'),
+				 url('http://thefourth.me/330-project1/fonts/chunkfive-webfont.svg#chunkfiveroman') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+	
+		body { margin: 0; padding: 0; background: #999;}
+		canvas { display: block; margin: 0.5em auto; background: #fff; }
+		#about {
+			width: 600px;
+			margin-left:auto;
+			margin-right:auto;
+			padding: 0.5em;
+			background: white;
+		}
+		h1 {
+			font-family: 'chunkfiveroman', serif;
+			font-size: 21px;
+			width:100%;
+			padding-left: auto;
+			padding-right: auto;
+			color: #222222;
+			text-align: center;
+			text-decoration: underline;
+		}
+		h2 {
+			font-size: 16px;
+			margin-bottom: 0.2em;
+		}
+		.tbi-title {
+			color: #000;
+			font-size: 16px;
+		}
+		.tbi {
+			color: #AAAAAA;
+			font-size: 85%;
+		}
+		ul, p{
+			margin-top: 0.2em;
+		}
+		p{
+			padding-left: 1em;
+		}
+	</style>
+	<title>330 Project1 Frankie DiPietro</title>
+</head>
+<body>
+	<div id="about">
+		<h1>The Cleverly-Titled Space-esque Hyphen-heavy Game!</h1>
+		<h2> Overview </h2>
+		<p> 
+			This is a small game written for 330-Rich Media Web App Dev 
+			<br/><br/>
+			The concept is a platformer jumping from gravitational bodies.<br/>
+			The dotted lines mark the influence range of each planet. Moving 
+			within them will cause you to be affected by the planet's gravity. 
+			<br/><br/>
+			The goal (to be implemented) will be to collect the gold on each 
+			of the planets while avoiding dangers, maintaining fuel, and not 
+			drifting off into the endless void of space. Then to reach the warp 
+			gate at the end of the map to move on to the next.
+		</p>
+		<h2> Details </h2>
+		<p>
+			The skeleton of the code behind this is derived from the Blastem 
+			projected provided by my professor, Sean Boyle.
+			<br/>
+			The game works by applying basic physics (velocity & whatnot) to 
+			the player and spinning the canvas around using canvas 
+			tranformations. Each time velocity is applied to the player 
+			through movement a bit of fuel is taken away based on how much velocity 
+			is added. 
+		</p>
+		<h2> Issues </h2>
+		<p>
+			The biggest issue I had is getting some features to work through GitHub. Namely resource loading since the way provided by the course doesn't work due to cross-origin sharing policies. Everything works locally, but unfortunately I'll need to migrate things back to gibson to make them work online.
+		</p>
+		<h2> Links/Credits </h2>
+		<p>
+			<ul>
+				<li><a href="index.html">Return to game </a></li>
+				<li>This is currently hosted on GitHub! <a href="https://github.com/fad4470/330-Project1/">Check it out!</a></li>
+				<li>Much of the structure and music for this project came from <a href="http://darkbolt.com/">Sean Boyle</a></li>
+				<li>Sound effects made with <a href="http://bfxr.net/">BFXR</a></li>
+				<li><a href="http://createjs.com/TweenJS">CreateJS</a> is used to load and manage sounds.</li>
+				<li><a href="http://createjs.com/Docs/PreloadJS/modules/PreloadJS.html">PreloadJS</a> from CreateJS is used to preload the images.</li>
+			</ul>
+		</p>
+	</div>
+</body>
+</html>
