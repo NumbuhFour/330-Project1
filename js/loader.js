@@ -35,23 +35,35 @@ app.SOUNDS = {
 
 app.LEVELS = [
 	{ // ###### LEVEL 1 ##########
-		spawn:{x:320,y:420},
+		spawn:{x:0,y:0},
 		planets:[
 			{
-				name:"Redius",
-				position:{x:180,y:400},
-				color:"red",
-				size:50,
-				info:{ "Silly Names": 16},
+				name:"Plurf",
+				position:{x:100,y:100},
+				color:"violet",
+				size:125,
+				info:{ "Population": "You", "Movie Awards":"Worst Cameraman"},
 				objects:[
-					{type:"door",angle:0}
+					{type:"coin",angle:120},
+					{type:"coin",angle:240},
+					{type:"coin",angle:360}
+				]
+			},
+			{
+				name:"Goaltonia",
+				position:{x:2180,y:400},
+				color:"gold",
+				size:50,
+				info:{ "Silly Names": 16, "Worst Fruit":"Cabbage"},
+				objects:[
+					{type:"door",angle:180}
 				]
 			},
 			{
 				name:"Grun",
-				position:{x:400,y:50},
+				position:{x:1400,y:-550},
 				color:"green",
-				size:100,
+				size:150,
 				info:{"Gas Provider":"BP"},
 				objects:[
 					{type:"fuel", angle:0},
@@ -62,9 +74,9 @@ app.LEVELS = [
 			},
 			{
 				name:"Bluton",
-				position:{x:900,y:900},
+				position:{x:1900,y:1900},
 				color:"blue",
-				size:200,
+				size:250,
 				info:{"Last Visitor":"Bill Gates"},
 				objects:[
 					{type:"coin", angle:0},
@@ -89,23 +101,38 @@ app.LEVELS = [
 	},
 	
 	{ // ###### LEVEL 2 ##########
-		spawn:{x:320,y:420},
+		spawn:{x:0,y:0},
 		planets:[
 			{
-				name:"",
-				position:{x:400,y:-250},
-				color:"green",
-				size:50,
-				info:{ "Silly Names": 16},
+				name:"Plurf",
+				position:{x:100,y:100},
+				color:"violet",
+				size:125,
+				info:{ "Population": "You", "Movie Awards":"Worst Cameraman"},
 				objects:[
-					{type:"door",angle:0}
+					{type:"fuel",angle:120},
+					{type:"coin",angle:240},
+					{type:"coin",angle:360}
 				]
 			},
 			{
-				name:"Bluton",
-				position:{x:900,y:900},
-				color:"blue",
-				size:100,
+				name:"Goaltonia",
+				position:{x:4180,y:1200},
+				color:"gold",
+				size:200,
+				info:{ "Silly Names": 16, "Worst Fruit":"Cabbage"},
+				objects:[
+					{type:"door",angle:180},
+					{type:"spikes", angle:270},
+					{type:"spikes", angle:90},
+					{type:"spikes", angle:0},
+				]
+			},
+			{
+				name:"Grun",
+				position:{x:1400,y:-550},
+				color:"green",
+				size:150,
 				info:{"Gas Provider":"BP"},
 				objects:[
 					{type:"fuel", angle:0},
@@ -115,10 +142,10 @@ app.LEVELS = [
 				]
 			},
 			{
-				name:"Redius",
-				position:{x:200,y:400},
-				color:"red",
-				size:200,
+				name:"Bluton",
+				position:{x:4900,y:-1900},
+				color:"blue",
+				size:250,
 				info:{"Last Visitor":"Bill Gates"},
 				objects:[
 					{type:"coin", angle:0},
@@ -132,6 +159,145 @@ app.LEVELS = [
 					{type:"coin", angle:36*8},
 					{type:"coin", angle:36*9},
 					
+					{type:"spikes", angle:15},
+					{type:"spikes", angle:36+15},
+					{type:"spikes", angle:36*2+15},
+					{type:"spikes", angle:36*5+15},
+					{type:"spikes", angle:36*6+15},
+					{type:"spikes", angle:36*7+15},
+				]
+			}
+			
+		]
+	},{ // ###### LEVEL 3 ##########
+		spawn:{x:0,y:0},
+		planets:[
+			{
+				name:"Plurf",
+				position:{x:100,y:100},
+				color:"violet",
+				size:125,
+				info:{ "Population": "You", "Movie Awards":"Worst Cameraman"},
+				objects:[
+					{type:"spikes",angle:100},
+					{type:"coin",angle:220},
+					{type:"spikes",angle:340}
+				]
+			},
+			{
+				name:"Goaltonia",
+				position:{x:-5180,y:-5400},
+				color:"gold",
+				size:50,
+				info:{ "Silly Names": 16, "Worst Fruit":"Cabbage"},
+				objects:[
+					{type:"door",angle:180}
+				]
+			},
+			{
+				name:"Grun",
+				position:{x:1400,y:-550},
+				color:"green",
+				size:150,
+				info:{"Gas Provider":"BP"},
+				objects:[
+					{type:"fuel", angle:0},
+					{type:"fuel", angle:90},
+					{type:"fuel", angle:180},
+					{type:"key", angle:270},
+				]
+			},
+			{
+				name:"Bluton",
+				position:{x:-5900,y:1900},
+				color:"blue",
+				size:250,
+				info:{"Last Visitor":"Bill Gates"},
+				objects:[
+					{type:"coin", angle:0},
+					{type:"coin", angle:36},
+					{type:"coin", angle:36*2},
+					{type:"coin", angle:36*3},
+					{type:"coin", angle:36*4},
+					{type:"coin", angle:36*5},
+					{type:"coin", angle:36*6},
+					{type:"coin", angle:36*7},
+					{type:"coin", angle:36*8},
+					{type:"coin", angle:36*9},
+					
+					{type:"spikes", angle:15},
+					{type:"spikes", angle:36+15},
+					{type:"spikes", angle:36*2+15},
+					{type:"spikes", angle:36*3+15},
+					{type:"spikes", angle:36*4+15},
+					{type:"spikes", angle:36*5+15},
+					{type:"spikes", angle:36*6+15},
+					{type:"spikes", angle:36*7+15},
+					{type:"spikes", angle:36*8+15},
+					{type:"spikes", angle:36*9+15},
+				]
+			}
+			
+		]
+	},{ // ###### LEVEL 4 ##########
+		spawn:{x:0,y:0},
+		planets:[
+			{
+				name:"Plurf",
+				position:{x:100,y:100},
+				color:"violet",
+				size:50,
+				info:{ "Population": "You", "Movie Awards":"Worst Cameraman"},
+				objects:[
+					{type:"coin",angle:120},
+					{type:"coin",angle:240},
+					{type:"coin",angle:360}
+				]
+			},
+			{
+				name:"Goaltonia",
+				position:{x:500,y:-500},
+				color:"gold",
+				size:50,
+				info:{ "Silly Names": 16, "Worst Fruit":"Cabbage"},
+				objects:[
+					{type:"door",angle:180}
+				]
+			},
+			{
+				name:"Grun",
+				position:{x:-500,y:-500},
+				color:"green",
+				size:50,
+				info:{"Gas Provider":"BP"},
+				objects:[
+					{type:"fuel", angle:0},
+					{type:"fuel", angle:90},
+					{type:"fuel", angle:180},
+					{type:"key", angle:270},
+				]
+			},
+			{
+				name:"Bluton",
+				position:{x:500,y:500},
+				color:"blue",
+				size:50,
+				info:{"Last Visitor":"Bill Gates"},
+				objects:[
+					{type:"coin", angle:0},
+					{type:"coin", angle:36},
+					{type:"coin", angle:36*2},
+					{type:"coin", angle:36*3},
+					{type:"coin", angle:36*4},
+					{type:"coin", angle:36*5},
+					{type:"coin", angle:36*6},
+					{type:"coin", angle:36*7},
+					{type:"coin", angle:36*8},
+					{type:"coin", angle:36*9},
+					
+					{type:"spikes", angle:15},
+					{type:"spikes", angle:36+15},
+					{type:"spikes", angle:36*2+15},
 					{type:"spikes", angle:36*3+15},
 				]
 			}
@@ -190,6 +356,7 @@ window.addEventListener("keyup", function(e){
 	app.keydown[e.keyCode] = false;
 	
 	if(e.keyCode == 83) app.game.toggleSoundtrack(); //s
+	if(e.keyCode == 78) app.game.nextLevel(); //s
 	e.preventDefault();
 });
 
@@ -200,4 +367,4 @@ window.addEventListener('touchstart', function(e){
 window.addEventListener('touchend', function(e){
 	e.preventDefault();
 	app.keydown[app.KEYBOARD.KEY_SPACE] = false;
-}, false);
+}, false);7
