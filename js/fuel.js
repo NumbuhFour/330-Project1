@@ -82,6 +82,7 @@ app.Fuel = function(){
 	
 	p.onTouch = function(player) {
 		if(this.collected || player.fuel >= player.maxFuel) return;
+		app.SOUNDS.gas.play();
 		player.fuel += 3;
 		this.fuel -= 3;
 		if(this.fuel <= 0) this.collected = true;

@@ -39,8 +39,8 @@ app.player = {
 	planet: undefined,
 	angleWithPlanet: 0,
 	
-	maxFuel: 1000,
-	fuel: 1000,
+	maxFuel: 300,
+	fuel: 300,
 	score: 0,
 	
 	init: function(){
@@ -181,7 +181,10 @@ app.player = {
 			//this.moveTangetToPlanet(-this.walkSpeed*dt);
 			//this.onGround = false;
 		}else if(this.planet){
-			if(this.fuel > 0) this.moveTangetToPlanet(-this.tangentSpeed*dt);
+			if(this.fuel > 0) {
+				app.SOUNDS.rockets.play();
+				this.moveTangetToPlanet(-this.tangentSpeed*dt);
+			}
 		}else{
 			this.angle -= this.spinSpeed*dt;
 		}
@@ -197,7 +200,10 @@ app.player = {
 			//this.moveTangetToPlanet(this.walkSpeed*dt);
 			//this.onGround = false;
 		}else if(this.planet){
-			if(this.fuel > 0) this.moveTangetToPlanet(this.tangentSpeed*dt);
+			if(this.fuel > 0) {
+				app.SOUNDS.rockets.play();
+				this.moveTangetToPlanet(this.tangentSpeed*dt);
+			}
 		}else{
 			this.angle += this.spinSpeed*dt;
 		}
@@ -209,12 +215,14 @@ app.player = {
 			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.flySpeed*dt;
 			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
 			
+			app.SOUNDS.rockets.play();
 			this.fuel -= this.flySpeed*dt;
 		}else {
 			this.xVel -=  Math.cos(this.angle+Math.PI/2) * this.thrust*dt;
 			this.yVel -=  Math.sin(this.angle+Math.PI/2) * this.thrust*dt;
 			this.fuel -= this.thrust*dt;
 			this.onGround = false;
+			app.SOUNDS.rockets.play();
 		}
 	},
 	moveDown: function(dt){
@@ -224,11 +232,13 @@ app.player = {
 			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.flySpeed*dt;
 		
 			this.fuel -= this.flySpeed*dt;
+			app.SOUNDS.rockets.play();
 		}else {
 			this.xVel +=  Math.cos(this.angle+Math.PI/2) * this.thrust*dt;
 			this.yVel +=  Math.sin(this.angle+Math.PI/2) * this.thrust*dt;
 			this.fuel -= this.thrust*dt;
 			this.onGround = false;
+			app.SOUNDS.rockets.play();
 		}
 	},
 	

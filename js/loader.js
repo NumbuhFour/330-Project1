@@ -31,6 +31,9 @@ app.IMAGES = {
 app.SOUNDS = {
 	music:undefined,
 	coin:undefined,
+	gas:undefined,
+	rockets:undefined,
+	key:undefined,
 }
 
 app.LEVELS = [
@@ -104,11 +107,11 @@ app.LEVELS = [
 		spawn:{x:0,y:0},
 		planets:[
 			{
-				name:"Plurf",
+				name:"New Plurf",
 				position:{x:100,y:100},
 				color:"violet",
 				size:125,
-				info:{ "Population": "You", "Movie Awards":"Worst Cameraman"},
+				info:{ "Population": "Still You", "Unwanted Teleports":"25,600"},
 				objects:[
 					{type:"fuel",angle:120},
 					{type:"coin",angle:240},
@@ -116,11 +119,11 @@ app.LEVELS = [
 				]
 			},
 			{
-				name:"Goaltonia",
+				name:"Macklorpa",
 				position:{x:4180,y:1200},
 				color:"gold",
 				size:200,
-				info:{ "Silly Names": 16, "Worst Fruit":"Cabbage"},
+				info:{ "Mysterious Doors": 2, "Best before":"5/16/2160"},
 				objects:[
 					{type:"door",angle:180},
 					{type:"spikes", angle:270},
@@ -129,24 +132,22 @@ app.LEVELS = [
 				]
 			},
 			{
-				name:"Grun",
+				name:"The North",
 				position:{x:1400,y:-550},
-				color:"green",
-				size:150,
-				info:{"Gas Provider":"BP"},
+				color:"rgb(195,201,3)",
+				size:202,
+				info:{"Gas leaks":"[REDACTED]"},
 				objects:[
-					{type:"fuel", angle:0},
 					{type:"fuel", angle:90},
-					{type:"fuel", angle:180},
 					{type:"key", angle:270},
 				]
 			},
 			{
-				name:"Bluton",
+				name:"Floopal",
 				position:{x:4900,y:-1900},
-				color:"blue",
-				size:250,
-				info:{"Last Visitor":"Bill Gates"},
+				color:"rgb(165,109,255)",
+				size:350,
+				info:{"Price of Gold":"2 Cars and a Ham", "Price of Ham": "$4.13"},
 				objects:[
 					{type:"coin", angle:0},
 					{type:"coin", angle:36},
@@ -169,15 +170,16 @@ app.LEVELS = [
 			}
 			
 		]
-	},{ // ###### LEVEL 3 ##########
+	},
+	{ // ###### LEVEL 3 ##########
 		spawn:{x:0,y:0},
 		planets:[
 			{
-				name:"Plurf",
+				name:"Plurfington",
 				position:{x:100,y:100},
 				color:"violet",
 				size:125,
-				info:{ "Population": "You", "Movie Awards":"Worst Cameraman"},
+				info:{ "Population": "Really, Just You", "Soil Content":"Primarilly Old Spinach"},
 				objects:[
 					{type:"spikes",angle:100},
 					{type:"coin",angle:220},
@@ -189,7 +191,7 @@ app.LEVELS = [
 				position:{x:-5180,y:-5400},
 				color:"gold",
 				size:50,
-				info:{ "Silly Names": 16, "Worst Fruit":"Cabbage"},
+				info:{ "Carpenter Companies": 16, "Worst Fruit":"Cabbage"},
 				objects:[
 					{type:"door",angle:180}
 				]
@@ -239,7 +241,8 @@ app.LEVELS = [
 			}
 			
 		]
-	},{ // ###### LEVEL 4 ##########
+	},
+	{ // ###### LEVEL 4 ##########
 		spawn:{x:0,y:0},
 		planets:[
 			{
@@ -323,6 +326,9 @@ window.onload = function(){
 	
 	app.SOUNDS.music = document.getElementById("music");
 	app.SOUNDS.coin = document.getElementById("coinFX");
+	app.SOUNDS.gas = document.getElementById("gasFX");
+	app.SOUNDS.rockets = document.getElementById("rocketsFX");
+	app.SOUNDS.key = document.getElementById("keyFX");
 	
 	app.game.app = app;
 	app.game.utils = app.utils;

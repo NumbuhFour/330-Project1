@@ -39,6 +39,9 @@ app.game = {
 	dead: false,
 	victory: false,
 	lastScore: 0,
+	
+	doorMsg:"Collect Coins, Find the Keys, and Escape!",
+	doorMsgTimer:8,
     
     // methods
 	init : function(player, drawLib) {
@@ -52,7 +55,7 @@ app.game = {
 		
 		this.soundtrack = this.app.SOUNDS.music;
 		this.soundtrack.loop = true;
-		this.soundtrack.play();
+		//this.soundtrack.play();
 		
 		this.camx = player.x;
 		this.camy = player.y;
@@ -71,10 +74,16 @@ app.game = {
 		this.keyImage.src = this.app.IMAGES["keyImage"];
 		this.spikesImage = new Image();
 		this.spikesImage.src = this.app.IMAGES["spikesImage"];
+		
 		this.loadLevel(0);
+		this.doorMsg = "Collect Coins, Find the Keys, and Escape!";
+		this.doorMsgTimer = 8;
 	},
 	
 	loadLevel:function(level){
+		this.doorMsg = "Level " + (level+1),
+		this.doorMsgTimer = 5,
+		
 		this.player.score = this.lastScore;
 		this.dead = false;
 		this.victory = false;
@@ -137,6 +146,13 @@ app.game = {
 	
 	keyObtained: function(){
 		this.keysLeft --;
+		
+		if(this.keysLeft == 0){
+			this.doorMsg = "Warpgate Opened!";
+		}else{
+			this.doorMsg = this.keysleft + " keys remain!";
+		}
+		this.doorMsgTimer = 5;
 	},
 	
 	nextLevel: function(){
@@ -325,6 +341,17 @@ objects:[
 		}
 		
 		this.ctx.restore();
+		
+		//Door Message
+		if(this.doorMsg != ""){
+			this.doorMsgTimer -= this.dt;
+			this.ctx.save();
+			this.ctx.textAlign = "center";
+			this.drawLib.textoutline(this.ctx, this.doorMsg, this.WIDTH/2, this.HEIGHT-5, 18, "red","white");
+			
+			this.ctx.restore();
+			if(this.doorMsgTimer <= 0) this.doorMsg = "";
+		}
 	},
 	
     update : function(){

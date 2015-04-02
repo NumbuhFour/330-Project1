@@ -71,6 +71,16 @@ app.drawLib = {
 		ctx.fillStyle = color;
 		ctx.fillText(string, x,y);
 		ctx.restore();
-	}
+	},
+	
+	textoutline : function(ctx, string, x, y, size, color, outlineCol){
+		ctx.save();
+		ctx.font = 'bold ' + size + 'px Monospace';
+		ctx.fillStyle = color;
+		ctx.strokeStyle = outlineCol;
+		ctx.strokeText(string,x,y);
+		ctx.fillText(string, x,y);
+		ctx.restore();
+	},
 	
 }
